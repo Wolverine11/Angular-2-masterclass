@@ -27,4 +27,9 @@ export class ContactsService {
 
       return contact;
   }
+
+  updateContact(contact: Contact)
+  {
+     return this.http.put(this.API_ENDPOINT + contact.id, contact);
+  }
 }
