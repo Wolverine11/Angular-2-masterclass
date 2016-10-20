@@ -17,8 +17,6 @@ export class ContactsListComponent implements OnInit{
 
   ngOnInit(){
     
-    //this.contacts = this.contactsService.getContacts();
-
     this.contacts = this.terms.debounceTime(400)
                .distinctUntilChanged()
                .switchMap(searchTerm => this.contactsService.search(searchTerm))

@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { ContactsAppComponent } from './contacts.component';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { ContactsDetailComponentComponent } from './contacts-detail/contacts-detail-component.component';
+import { ContactsDetailViewComponent } from './contacts-detail-view/contacts-detail-view.component';
 import { ContactsEditorComponent } from './contacts-editor/contacts-editor.component';
 import { ContactsAppRoutes  } from './app.routes';
 import { ContactsHeaderComponent } from './contacts-header/contacts-header.component';
@@ -21,7 +22,8 @@ import 'rxjs/add/operator/merge'
                  ContactsHeaderComponent,
                  ContactsListComponent,
                  ContactsDetailComponentComponent,
-                 ContactsEditorComponent],
+                 ContactsEditorComponent,
+                 ContactsDetailViewComponent],
   providers: [ContactsService,
               {provide: 'apiEndPoint' ,useValue:'http://localhost:4201/api/'}],
   imports: [BrowserModule, 
