@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Contact } from '../models/contact';
 import { ContactsService } from '../contacts.service';
 import { Observable } from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'trm-contacts-list',
@@ -11,10 +12,18 @@ import { Observable } from 'rxjs/Observable';
 export class ContactsListComponent implements OnInit{
   constructor(private contactsService: ContactsService){}
 
-  contacts: Observable<Array<Contact>>;
+  private  contacts: Observable<Array<Contact>>;
+  private terms = new Subject<string>();
 
   ngOnInit(){
-    this.contacts = this.contactsService.getContacts();
-  }
+    
+    //this.contacts = this.contactsService.getContacts();
 
+    this.contacts = this.terms.debounceTime(400)
+               .distinctUntilChanged()
+               .switchMap(searchTerm => this.contactsService.search(searchTerm))
+               .merge(this.contactsService.getContacts());
+
+
+  } 
 }
