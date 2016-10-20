@@ -11,6 +11,8 @@ import { ContactsEditorComponent } from './contacts-editor/contacts-editor.compo
 import { ContactsAppRoutes  } from './app.routes';
 import { ContactsHeaderComponent } from './contacts-header/contacts-header.component';
 import { ContactsService } from './contacts.service';
+import { EventBusService } from './event-bus.service';
+import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime' 
 import 'rxjs/add/operator/distinctUntilChanged'
@@ -25,7 +27,8 @@ import 'rxjs/add/operator/merge'
                  ContactsEditorComponent,
                  ContactsDetailViewComponent],
   providers: [ContactsService,
-              {provide: 'apiEndPoint' ,useValue:'http://localhost:4201/api/'}],
+              {provide: 'apiEndPoint' ,useValue:'http://localhost:4201/api/'},
+              EventBusService],
   imports: [BrowserModule, 
             RouterModule.forRoot(ContactsAppRoutes),
             HttpModule,

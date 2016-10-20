@@ -3,6 +3,7 @@ import { Contact } from '../models/contact';
 import { ContactsService } from '../contacts.service';
 import { Observable } from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
+import { EventBusService } from '../event-bus.service';
 
 @Component({
   selector: 'trm-contacts-list',
@@ -10,18 +11,18 @@ import {Subject} from 'rxjs/Subject';
   styleUrls: ['./contacts-list.component.css']
 })
 export class ContactsListComponent implements OnInit{
-  constructor(private contactsService: ContactsService){}
+    constructor(private contactsService: ContactsService, private eventBus:EventBusService){}
 
-  private  contacts: Observable<Array<Contact>>;
-  private terms = new Subject<string>();
+    private  contacts: Observable<Array<Contact>>;
+    private terms = new Subject<string>();
 
-  ngOnInit(){
+    ngOnInit(){
     
+    this.eventBus.emit('appTitleChange', "Contacts")
+
     this.contacts = this.terms.debounceTime(400)
                .distinctUntilChanged()
                .switchMap(searchTerm => this.contactsService.search(searchTerm))
                .merge(this.contactsService.getContacts());
-
-
-  } 
+    } 
 }
